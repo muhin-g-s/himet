@@ -1,0 +1,28 @@
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	position: relative;
+	display: block;
+	margin: 0;
+}
+
+html,
+body {
+	box-sizing: border-box;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	-ms-overflow-style: scrollbar;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+html *,
+body *,
+html *::before,
+body *::before,
+html *::after,
+body *::after {
+	box-sizing: inherit;
+}
