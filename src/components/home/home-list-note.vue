@@ -2,7 +2,9 @@
 import { ref } from 'vue';
 import { mdiDelete } from '@mdi/js';
 
-import { useApiService } from '@/services';
+import { ADD_NOTE } from '@/constants';
+
+import { useApiService, useEventBus } from '@/services';
 
 import HomeListMoreInfo from './home-list-more-info.vue';
 
@@ -15,6 +17,7 @@ const props = defineProps<INoteFilter>();
 const systemStore = useSystemStore();
 
 const apiService = useApiService();
+const eventBus = useEventBus();
 
 const notes = ref<INote[]>();
 const isOpenMoreInfo = ref(true);
@@ -22,6 +25,7 @@ const currentNote = ref<INote | null>();
 
 function onCreated(): void {
 	loadNotes();
+	eventBus.on(ADD_NOTE, () => loadNotes());
 }
 
 async function loadNotes(date?: string): Promise<void> {
