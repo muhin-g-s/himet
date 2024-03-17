@@ -14,7 +14,7 @@ function changeStateDrawer() {
 	<v-layout>
 		<main-header @change="changeStateDrawer" />
 		<main-drawer v-model="isOpenDrawer" />
-		<v-main>
+		<v-main class="h-100">
 			<router-view />
 		</v-main>
 	</v-layout>
