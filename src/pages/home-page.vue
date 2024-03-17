@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import homeFilter from '@/components/home/home-filter.vue';
+import HomeFilter from '@/components/home/home-filter.vue';
+import HomeListNote from '@/components/home/home-list-note.vue';
 
 import { INoteFilter } from '@/components/home/home.types';
 
@@ -17,4 +18,5 @@ function onFilterChanged(newFilter: INoteFilter): void {
 		:date="filter.date"
 		@change="onFilterChanged"
 	/>
+	<home-list-note :date="filter.date" />
 </template>
