@@ -261,6 +261,12 @@ Object.entries({
 			},
 		});
 	},
+}).forEach(([, configure]) => {
+	try {
+		configure(config);
+	} catch (_) {
+		// Игнорирование ошибки.
+	}
 });
 
 module.exports = config;
