@@ -1,8 +1,8 @@
-<script setup lang="ts">
-</script>
+<!-- eslint-disable filenames/match-regex -->
+<script setup lang="ts"></script>
 
 <template>
 	<v-app>
-		<router-view/>
+		<router-view />
 	</v-app>
 </template>

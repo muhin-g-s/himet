@@ -17,6 +17,7 @@
     "vuetify": "^3.5.9"
   },
   "devDependencies": {
+    "@mdi/js": "^7.4.47",
     "@types/node": "20.11.20",
     "@typescript-eslint/eslint-plugin": "7.0.2",
     "@typescript-eslint/parser": "7.0.2",
