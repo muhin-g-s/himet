@@ -1,8 +1,12 @@
 import '@/styles/index.scss';
+import 'vuetify/styles';
 
+import { createVuetify } from 'vuetify';
+import * as components from 'vuetify/components';
+import * as directives from 'vuetify/directives';
 import { createApp } from 'vue';
-import { createPinia } from 'pinia';
 import type { App as IApp } from 'vue';
+import { createPinia } from 'pinia';
 
 import router from '@/router';
 
@@ -14,7 +18,12 @@ const configureApp = (app: IApp): void => {
 	const services = createServices();
 	Object.entries(services).forEach(([key, value]) => app.provide(key, value));
 
-	app.use(router).use(createPinia());
+	const vuetify = createVuetify({
+		components,
+		directives,
+	});
+
+	app.use(router).use(createPinia()).use(vuetify);
 };
 
 const app = createApp(App);

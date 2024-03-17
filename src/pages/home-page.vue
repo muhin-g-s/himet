@@ -2,11 +2,7 @@
 </script>
 
 <template>
-	<div class="home-page">Init</div>
+    <v-main>
+      test
+    </v-main>
 </template>
-
-<style scoped lang="scss">
-.home-page {
-	background-color: aqua;
-}
-</style>
