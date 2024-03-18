@@ -2,9 +2,8 @@
 import { ref } from 'vue';
 import { mdiDelete } from '@mdi/js';
 
-import { ADD_NOTE } from '@/constants';
-
 import { useApiService, useEventBus } from '@/services';
+import { EventEnum } from '@/services/event-bus-service';
 
 import HomeListMoreInfo from './home-list-more-info.vue';
 
@@ -25,7 +24,7 @@ const currentNote = ref<INote | null>();
 
 function onCreated(): void {
 	loadNotes();
-	eventBus.on(ADD_NOTE, () => loadNotes());
+	eventBus.on(EventEnum.CHANGE_NOTE, () => loadNotes());
 }
 
 async function loadNotes(date?: string): Promise<void> {
