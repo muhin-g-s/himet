@@ -46,6 +46,8 @@ async function deleteNote(noteId: string): Promise<void> {
 
 		await apiService.note.delete(noteId);
 
+		eventBus.emit(EventEnum.CHANGE_NOTE);
+
 		await loadNotes();
 	} catch (e) {
 		// TODO сделать обработку ошибок
