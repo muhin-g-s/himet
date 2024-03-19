@@ -18,6 +18,6 @@ const emit = defineEmits<{
 		temporary
 		@update:model-value="emit('update:modelValue', $event)"
 	>
-		<drawer-form />
+		<drawer-form :is-open="props.modelValue" />
 	</v-navigation-drawer>
 </template>
