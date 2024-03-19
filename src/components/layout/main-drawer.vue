@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import DrawerForm from '../drawer/drawer-form.vue';
+
 interface IMainDrawerProps {
 	modelValue: boolean;
 }
@@ -14,9 +16,8 @@ const emit = defineEmits<{
 	<v-navigation-drawer
 		:model-value="props.modelValue"
 		temporary
-		width="content"
 		@update:model-value="emit('update:modelValue', $event)"
 	>
-		test
+		<drawer-form />
 	</v-navigation-drawer>
 </template>
