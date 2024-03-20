@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { mdiDelete } from '@mdi/js';
 
 import { useApiService, useEventBus } from '@/services';
@@ -22,17 +22,39 @@ const notes = ref<INote[]>();
 const isOpenMoreInfo = ref(true);
 const currentNote = ref<INote | null>();
 
-function onCreated(): void {
-	loadNotes();
+watch(
+	() => props.date,
+	async () => {
+		if (props.date) {
+			await loadNotesByDate(props.date);
+		} else {
+			await loadNotes();
+		}
+	},
+);
+
+async function onCreated(): Promise<void> {
+	await loadNotes();
 	eventBus.on(EventEnum.CHANGE_NOTE, () => loadNotes());
 }
 
-async function loadNotes(date?: string): Promise<void> {
+async function loadNotes(): Promise<void> {
 	try {
 		systemStore.startLoading();
-		if (!date) {
-			notes.value = await apiService.note.getAll();
-		}
+
+		notes.value = await apiService.note.getAll();
+	} catch (e) {
+		// TODO сделать обработку ошибок
+	} finally {
+		systemStore.finishLoading();
+	}
+}
+
+async function loadNotesByDate(date: string): Promise<void> {
+	try {
+		systemStore.startLoading();
+
+		notes.value = await apiService.note.sortByDate(date);
 	} catch (e) {
 		// TODO сделать обработку ошибок
 	} finally {
