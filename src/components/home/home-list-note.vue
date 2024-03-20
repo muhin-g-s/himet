@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import { mdiDelete } from '@mdi/js';
 
 import { useApiService, useEventBus } from '@/services';
@@ -21,6 +21,10 @@ const eventBus = useEventBus();
 const notes = ref<INote[]>();
 const isOpenMoreInfo = ref(true);
 const currentNote = ref<INote | null>();
+
+const noResultText = computed((): string =>
+	props.date ? 'There are no notes for this date' : 'Create a note and it will appear here',
+);
 
 watch(
 	() => props.date,
@@ -93,6 +97,12 @@ onCreated();
 
 <template>
 	<div class="d-flex flex-column mb-6 w-100 mt-4 justify-center m-auto align-center">
+		<p
+			v-if="!notes?.length"
+			class="mt-10"
+		>
+			{{ noResultText }}
+		</p>
 		<v-sheet
 			v-for="note in notes"
 			:key="note.id"
