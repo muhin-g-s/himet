@@ -19,6 +19,10 @@ interface IDrawerForm {
 
 const props = defineProps<IDrawerForm>();
 
+const emit = defineEmits<{
+	(event: 'close'): void;
+}>();
+
 const systemStore = useSystemStore();
 
 const apiService = useApiService();
@@ -108,6 +112,8 @@ async function handleSubmitButtonClick(): Promise<void> {
 	await createNote();
 
 	clearForm();
+
+	emit('close');
 }
 </script>
 
