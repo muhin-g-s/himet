@@ -16,6 +16,8 @@ type DatabaseResponseType = {
 	[K in keyof Omit<typeof DATABASE_SCHEME, typeof PRIMARY_KEY>]?: string;
 };
 
+type DatabaseKeySortRequestType = keyof DatabaseResponseType;
+
 type DatabaseRequestType = {
 	[K in keyof typeof DATABASE_SCHEME]?: string;
 } & { [PRIMARY_KEY]: string };
@@ -57,5 +59,9 @@ export default class DatabaseService {
 
 	async getAll(): Promise<DatabaseRequestType[]> {
 		return this.databaseAccessService.getAll() as unknown as DatabaseRequestType[];
+	}
+
+	async sortByValue(noteKey: DatabaseKeySortRequestType, value: string): Promise<DatabaseRequestType[]> {
+		return this.databaseAccessService.sortByValue(noteKey, value) as unknown as DatabaseRequestType[];
 	}
 }

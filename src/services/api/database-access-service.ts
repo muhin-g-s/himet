@@ -161,4 +161,42 @@ export default class DatabaseAccessService {
 
 		return this.performRequest<DatabaseSchemeFieldsType[]>(deleteObject);
 	}
+
+	async sortByValue(key: string, value: unknown): Promise<DatabaseSchemeFieldsType[]> {
+		const { nameStore } = this.databaseAccessServiceConfig;
+
+		return new Promise<DatabaseSchemeFieldsType[]>((resolve, reject) => {
+			const store = this.database?.transaction(nameStore, 'readonly').objectStore(nameStore);
+
+			if (!store) {
+				reject(new DatabaseAccessError('Invalid request'));
+				return;
+			}
+
+			const index = store.index(key);
+
+			const sortedItems: DatabaseSchemeFieldsType[] = [];
+
+			const request = index.openCursor();
+
+			request.onsuccess = () => {
+				const cursor = request.result;
+
+				if (cursor) {
+					const data = cursor.value;
+					if (data[key] === value) {
+						sortedItems.push(data);
+					}
+
+					cursor.continue();
+				} else {
+					resolve(sortedItems);
+				}
+			};
+
+			request.onerror = () => {
+				reject(new DatabaseAccessError('Database request failed'));
+			};
+		});
+	}
 }

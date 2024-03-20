@@ -17,4 +17,5 @@ export interface IDataTransferService {
 	read(id: string): Promise<IDataTransferRequest>;
 	delete(id: string): Promise<void>;
 	getAll(): Promise<IDataTransferRequest[]>;
+	sortByValue(noteKey: keyof IDataTransferResponse, value: string): Promise<IDataTransferRequest[]>;
 }

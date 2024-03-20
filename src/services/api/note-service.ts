@@ -39,4 +39,8 @@ export default class NoteService {
 	async getAll(): Promise<INoteRequest[]> {
 		return this.dataTransferService.getAll();
 	}
+
+	async sortByDate(value: string): Promise<INoteRequest[]> {
+		return this.dataTransferService.sortByValue('date', value);
+	}
 }
