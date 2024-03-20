@@ -92,6 +92,13 @@ async function validateNoteForm(): Promise<boolean> {
 	return isFormValid;
 }
 
+function clearForm() {
+	noteForm.date = '';
+	noteForm.name = '';
+	noteForm.discription = '';
+	v$.value.$reset();
+}
+
 async function handleSubmitButtonClick(): Promise<void> {
 	const isFormValid = await validateNoteForm();
 
@@ -99,6 +106,8 @@ async function handleSubmitButtonClick(): Promise<void> {
 		return;
 	}
 	await createNote();
+
+	clearForm();
 }
 </script>
 
