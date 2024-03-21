@@ -4,7 +4,7 @@ import { ref, watch, computed } from 'vue';
 import { useApiService, useEventBus } from '@/services';
 import { EventEnum } from '@/services/event-bus-service';
 
-import HomeListMoreInfo from './home-list-more-info.vue';
+import HomeListNoteMoreInfo from './home-list-note-more-info.vue';
 import HomeListNoteItem from './home-list-note-item.vue';
 
 import { useSystemStore } from '@/stores';
@@ -19,8 +19,9 @@ const apiService = useApiService();
 const eventBus = useEventBus();
 
 const notes = ref<INote[]>();
-const isOpenMoreInfo = ref(true);
-const currentNote = ref<INote | null>();
+
+const isOpenNoteMoreInfo = ref(false);
+const currentNoteId = ref<string>('');
 
 const noResultText = computed((): string =>
 	props.date ? 'There are no notes for this date' : 'Create a note and it will appear here',
@@ -82,14 +83,14 @@ async function deleteNote(noteId: string): Promise<void> {
 	}
 }
 
-function openMoreInfo(note: INote) {
-	isOpenMoreInfo.value = true;
-	currentNote.value = note;
+function openMoreInfo(noteId: string) {
+	isOpenNoteMoreInfo.value = true;
+	currentNoteId.value = noteId;
 }
 
 function closeMoreInfo() {
-	isOpenMoreInfo.value = false;
-	currentNote.value = null;
+	isOpenNoteMoreInfo.value = false;
+	currentNoteId.value = '';
 }
 
 onCreated();
@@ -97,29 +98,32 @@ onCreated();
 
 <template>
 	<div class="d-flex flex-column mb-6 w-100 mt-4 justify-center m-auto align-center">
-		<p
-			v-if="!notes?.length"
-			class="mt-10"
-		>
-			{{ noResultText }}
-		</p>
-		<v-sheet
-			v-for="note in notes"
-			:key="note.id"
-			class="w-50 mb-3"
-		>
-			<home-list-note-item
-				:id="note.id"
-				:name="note.name"
-				:date="note.date"
-				@delete="deleteNote"
+		<template v-if="isOpenNoteMoreInfo">
+			<home-list-note-more-info
+				:id="currentNoteId"
+				@close="closeMoreInfo"
 			/>
-		</v-sheet>
-		<home-list-more-info
-			v-if="currentNote"
-			:is-open="isOpenMoreInfo"
-			:note="currentNote"
-			@close="closeMoreInfo"
-		/>
+		</template>
+		<template v-else>
+			<p
+				v-if="!notes?.length"
+				class="mt-10"
+			>
+				{{ noResultText }}
+			</p>
+			<v-sheet
+				v-for="note in notes"
+				:key="note.id"
+				class="w-50 mb-3"
+			>
+				<home-list-note-item
+					:id="note.id"
+					:name="note.name"
+					:date="note.date"
+					@delete="deleteNote"
+					@show-more="openMoreInfo"
+				/>
+			</v-sheet>
+		</template>
 	</div>
 </template>
