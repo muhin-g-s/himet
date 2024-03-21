@@ -35,7 +35,7 @@ function hideIconDelete() {
 		</div>
 
 		<div
-			class="w-50 d-flex justify-end align-center"
+			class="w-25 d-flex justify-end align-center"
 			@mouseover="showIconDelete()"
 			@mouseleave="hideIconDelete()"
 		>
