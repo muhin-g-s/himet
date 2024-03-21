@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-import { useApiService } from '@/services';
+import { useApiService, usenotificationService } from '@/services';
 
 import { useSystemStore } from '@/stores';
 
@@ -20,6 +20,7 @@ const emit = defineEmits<{
 const systemStore = useSystemStore();
 
 const apiService = useApiService();
+const notificationService = usenotificationService();
 
 const note = ref<INote>();
 
@@ -28,8 +29,8 @@ async function onCreated(): Promise<void> {
 		systemStore.startLoading();
 
 		note.value = await apiService.note.read(props.id);
-	} catch (e) {
-		// TODO сделать обработку ошибок
+	} catch {
+		notificationService.error('Failed to load note');
 	} finally {
 		systemStore.finishLoading();
 	}

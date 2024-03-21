@@ -5,7 +5,7 @@ import { helpers } from '@vuelidate/validators';
 
 import { useGetValidationErrorText } from '@/composables';
 
-import { useApiService, useEventBus, useValidationService } from '@/services';
+import { useApiService, useEventBus, useValidationService, usenotificationService } from '@/services';
 import { EventEnum } from '@/services/event-bus-service';
 
 import { useSystemStore } from '@/stores';
@@ -28,6 +28,7 @@ const systemStore = useSystemStore();
 const apiService = useApiService();
 const eventBus = useEventBus();
 const validationService = useValidationService();
+const notificationService = usenotificationService();
 
 const dateInputRef = ref<HTMLInputElement | null>(null);
 const nameInputRef = ref<HTMLInputElement | null>(null);
@@ -69,8 +70,8 @@ async function createNote(): Promise<void> {
 
 		await apiService.note.create(unref(noteForm));
 		eventBus.emit(EventEnum.CHANGE_NOTE);
-	} catch (e) {
-		// TODO сделать обработку ошибок
+
+		notificationService.success('Note created');
 	} finally {
 		systemStore.finishLoading();
 	}
@@ -107,13 +108,19 @@ async function handleSubmitButtonClick(): Promise<void> {
 	const isFormValid = await validateNoteForm();
 
 	if (!isFormValid) {
+		notificationService.warning('Failed to save note');
 		return;
 	}
-	await createNote();
 
-	clearForm();
+	try {
+		await createNote();
 
-	emit('close');
+		clearForm();
+
+		emit('close');
+	} catch {
+		notificationService.error('Failed to create note');
+	}
 }
 </script>
 

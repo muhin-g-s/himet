@@ -2,7 +2,7 @@
 import { ref, watch, computed } from 'vue';
 import { mdiArrowLeft } from '@mdi/js';
 
-import { useApiService, useEventBus } from '@/services';
+import { useApiService, useEventBus, usenotificationService } from '@/services';
 import { EventEnum } from '@/services/event-bus-service';
 
 import HomeListNoteMoreInfo from './home-list-note-more-info.vue';
@@ -18,6 +18,7 @@ const systemStore = useSystemStore();
 
 const apiService = useApiService();
 const eventBus = useEventBus();
+const notificationService = usenotificationService();
 
 const isDataLoaded = ref(false);
 
@@ -53,10 +54,11 @@ async function loadNotes(): Promise<void> {
 		systemStore.startLoading();
 
 		notes.value = await apiService.note.getAll();
-	} catch (e) {
-		// TODO сделать обработку ошибок
-	} finally {
+
 		isDataLoaded.value = true;
+	} catch {
+		notificationService.error('Failed to load notes');
+	} finally {
 		systemStore.finishLoading();
 	}
 }
@@ -68,10 +70,11 @@ async function loadNotesByDate(date: string): Promise<void> {
 		systemStore.startLoading();
 
 		notes.value = await apiService.note.sortByDate(date);
-	} catch (e) {
-		// TODO сделать обработку ошибок
-	} finally {
+
 		isDataLoaded.value = true;
+	} catch {
+		notificationService.error('Failed to load notes');
+	} finally {
 		systemStore.finishLoading();
 	}
 }
@@ -81,12 +84,13 @@ async function deleteNote(noteId: string): Promise<void> {
 		systemStore.startLoading();
 
 		await apiService.note.delete(noteId);
-
 		eventBus.emit(EventEnum.CHANGE_NOTE);
 
+		notificationService.success('Note deleted');
+
 		await loadNotes();
-	} catch (e) {
-		// TODO сделать обработку ошибок
+	} catch {
+		notificationService.error('Failed to delete notes');
 	} finally {
 		systemStore.finishLoading();
 	}
