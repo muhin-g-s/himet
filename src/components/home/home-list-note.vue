@@ -18,6 +18,8 @@ const systemStore = useSystemStore();
 const apiService = useApiService();
 const eventBus = useEventBus();
 
+const isDataLoaded = ref(false);
+
 const notes = ref<INote[]>();
 
 const isOpenNoteMoreInfo = ref(false);
@@ -44,6 +46,8 @@ async function onCreated(): Promise<void> {
 }
 
 async function loadNotes(): Promise<void> {
+	isDataLoaded.value = false;
+
 	try {
 		systemStore.startLoading();
 
@@ -51,11 +55,14 @@ async function loadNotes(): Promise<void> {
 	} catch (e) {
 		// TODO сделать обработку ошибок
 	} finally {
+		isDataLoaded.value = true;
 		systemStore.finishLoading();
 	}
 }
 
 async function loadNotesByDate(date: string): Promise<void> {
+	isDataLoaded.value = false;
+
 	try {
 		systemStore.startLoading();
 
@@ -63,6 +70,7 @@ async function loadNotesByDate(date: string): Promise<void> {
 	} catch (e) {
 		// TODO сделать обработку ошибок
 	} finally {
+		isDataLoaded.value = true;
 		systemStore.finishLoading();
 	}
 }
@@ -97,7 +105,10 @@ onCreated();
 </script>
 
 <template>
-	<div class="d-flex flex-column mb-6 w-100 mt-4 justify-center m-auto align-center">
+	<div
+		v-if="isDataLoaded"
+		class="d-flex flex-column mb-6 w-100 mt-4 justify-center m-auto align-center"
+	>
 		<template v-if="isOpenNoteMoreInfo">
 			<home-list-note-more-info
 				:id="currentNoteId"
