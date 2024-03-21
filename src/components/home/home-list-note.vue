@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { ref, watch, computed } from 'vue';
-import { mdiDelete } from '@mdi/js';
 
 import { useApiService, useEventBus } from '@/services';
 import { EventEnum } from '@/services/event-bus-service';
 
 import HomeListMoreInfo from './home-list-more-info.vue';
+import HomeListNoteItem from './home-list-note-item.vue';
 
 import { useSystemStore } from '@/stores';
 
@@ -106,21 +106,14 @@ onCreated();
 		<v-sheet
 			v-for="note in notes"
 			:key="note.id"
-			class="w-50"
+			class="w-50 mb-3"
 		>
-			<v-sheet
-				class="d-flex mb-2 pa-2 bg-surface-variant"
-				rounded
-				@click="openMoreInfo(note)"
-			>
-				<b class="mr-4">{{ note.date }}</b>
-				{{ note.name }}
-				<v-icon
-					class="ml-auto"
-					:icon="mdiDelete"
-					@click.stop="deleteNote(note.id)"
-				/>
-			</v-sheet>
+			<home-list-note-item
+				:id="note.id"
+				:name="note.name"
+				:date="note.date"
+				@delete="deleteNote"
+			/>
 		</v-sheet>
 		<home-list-more-info
 			v-if="currentNote"
