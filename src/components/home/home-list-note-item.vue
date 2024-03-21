@@ -11,7 +11,8 @@ interface IHomeListNoteItemProps {
 const props = defineProps<IHomeListNoteItemProps>();
 
 const emit = defineEmits<{
-	(event: 'delete', value: string): void;
+	(event: 'delete', id: string): void;
+	(event: 'show-more', id: string): void;
 }>();
 
 const isShowIconDelete = ref(false);
@@ -28,6 +29,7 @@ function hideIconDelete() {
 	<v-sheet
 		class="d-flex justify-space-between pa-2 bg-surface-variant"
 		rounded
+		@click="emit('show-more', props.id)"
 	>
 		<div>
 			<b class="mr-4">{{ props.date }}</b>
