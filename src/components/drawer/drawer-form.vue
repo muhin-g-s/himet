@@ -5,7 +5,7 @@ import { helpers } from '@vuelidate/validators';
 
 import { useGetValidationErrorText } from '@/composables';
 
-import { useApiService, useEventBus, useValidationService, usenotificationService } from '@/services';
+import { useApiService, useEventBus, useValidationService, useNotificationService } from '@/services';
 import { EventEnum } from '@/services/event-bus-service';
 
 import { useSystemStore } from '@/stores';
@@ -28,7 +28,7 @@ const systemStore = useSystemStore();
 const apiService = useApiService();
 const eventBus = useEventBus();
 const validationService = useValidationService();
-const notificationService = usenotificationService();
+const notificationService = useNotificationService();
 
 const dateInputRef = ref<HTMLInputElement | null>(null);
 const nameInputRef = ref<HTMLInputElement | null>(null);

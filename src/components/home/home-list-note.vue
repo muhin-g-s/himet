@@ -2,7 +2,7 @@
 import { ref, watch, computed } from 'vue';
 import { mdiArrowLeft } from '@mdi/js';
 
-import { useApiService, useEventBus, usenotificationService } from '@/services';
+import { useApiService, useEventBus, useNotificationService } from '@/services';
 import { EventEnum } from '@/services/event-bus-service';
 
 import HomeListNoteMoreInfo from './home-list-note-more-info.vue';
@@ -18,7 +18,7 @@ const systemStore = useSystemStore();
 
 const apiService = useApiService();
 const eventBus = useEventBus();
-const notificationService = usenotificationService();
+const notificationService = useNotificationService();
 
 const isDataLoaded = ref(false);
 

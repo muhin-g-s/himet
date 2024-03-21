@@ -26,4 +26,4 @@ export const createServices = () => {
 export const useApiService = () => inject('apiService') as ApiService;
 export const useEventBus = () => inject('eventBus') as EventBusService;
 export const useValidationService = () => inject('validationService') as ValidationService;
-export const usenotificationService = () => inject('notificationService') as NotificationService;
+export const useNotificationService = () => inject('notificationService') as NotificationService;

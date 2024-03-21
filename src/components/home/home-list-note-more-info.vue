@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-import { useApiService, usenotificationService } from '@/services';
+import { useApiService, useNotificationService } from '@/services';
 
 import { useSystemStore } from '@/stores';
 
@@ -20,7 +20,7 @@ const emit = defineEmits<{
 const systemStore = useSystemStore();
 
 const apiService = useApiService();
-const notificationService = usenotificationService();
+const notificationService = useNotificationService();
 
 const note = ref<INote>();
 
