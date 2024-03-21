@@ -1,8 +1,10 @@
+import 'vue-toastification/dist/index.css';
 import 'vuetify/styles';
 import { createVuetify } from 'vuetify';
 import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
 import { aliases, mdi } from 'vuetify/iconsets/mdi-svg';
+import Toast from 'vue-toastification';
 import { createApp } from 'vue';
 import type { App as IApp } from 'vue';
 import { createPinia } from 'pinia';
@@ -32,7 +34,12 @@ const configureApp = (app: IApp): void => {
 		},
 	});
 
-	app.use(router).use(createPinia()).use(vuetify);
+	// eslint-disable-next-line prettier/prettier
+	app
+		.use(router)
+		.use(createPinia())
+		.use(vuetify)
+		.use(Toast);
 };
 
 const app = createApp(App);
