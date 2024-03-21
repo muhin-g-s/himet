@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { ref, watch, computed } from 'vue';
+import { mdiArrowLeft } from '@mdi/js';
 
 import { useApiService, useEventBus } from '@/services';
 import { EventEnum } from '@/services/event-bus-service';
@@ -110,10 +111,19 @@ onCreated();
 		class="d-flex flex-column mb-6 w-100 mt-4 justify-center m-auto align-center"
 	>
 		<template v-if="isOpenNoteMoreInfo">
-			<home-list-note-more-info
-				:id="currentNoteId"
-				@close="closeMoreInfo"
-			/>
+			<div class="d-flex flex-column align-center w-100">
+				<div class="d-flex align-center justify-start mb-5 w-50">
+					<v-icon
+						:icon="mdiArrowLeft"
+						@click="closeMoreInfo"
+					/>
+					<span>Back</span>
+				</div>
+				<home-list-note-more-info
+					:id="currentNoteId"
+					@close="closeMoreInfo"
+				/>
+			</div>
 		</template>
 		<template v-else>
 			<p
