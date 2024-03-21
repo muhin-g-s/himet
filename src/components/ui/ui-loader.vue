@@ -10,6 +10,7 @@ const props = defineProps<IUiLoaderProps>();
 	<v-overlay
 		:model-value="props.loading"
 		close-on-back
+		opacity="0"
 		persistent
 		class="align-center justify-center"
 	>
