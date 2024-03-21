@@ -11,8 +11,8 @@ const emit = defineEmits<{
 	(event: 'update:modelValue', value: boolean): void;
 }>();
 
-function changeStateDrawer() {
-	emit('update:modelValue', !props.modelValue);
+function changeStateDrawer(newValue: boolean) {
+	emit('update:modelValue', newValue);
 }
 </script>
 
@@ -24,7 +24,7 @@ function changeStateDrawer() {
 	>
 		<drawer-form
 			:is-open="props.modelValue"
-			@close="changeStateDrawer"
+			@close="changeStateDrawer(false)"
 		/>
 	</v-navigation-drawer>
 </template>
