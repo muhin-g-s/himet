@@ -1,3 +1,7 @@
+## Ссылка на задеплоеное приложение
+
+https://himet-7aji.vercel.app/
+
 ## Кратко о проекте
 * UI framework - vuetifyjs
 * Уведомления - vue-toastification
@@ -15,7 +19,6 @@
 
 - [Vue.js](https://v3.vuejs.org/);
 - [TypeScript](https://www.typescriptlang.org/);
-- [Scss](https://sass-scss.ru/).
 
 ## Команды
 
