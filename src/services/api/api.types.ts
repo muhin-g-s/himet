@@ -6,8 +6,8 @@ export interface IDataTransferResponse {
 
 export interface IDataTransferRequest {
 	id: string;
-	date: string;
-	name: string;
+	date?: string;
+	name?: string;
 	discription?: string;
 }
 

@@ -8,8 +8,8 @@ export interface INoteResponse {
 
 export interface INoteRequest {
 	id: string;
-	date: string;
-	name: string;
+	date?: string;
+	name?: string;
 	discription?: string;
 }
 

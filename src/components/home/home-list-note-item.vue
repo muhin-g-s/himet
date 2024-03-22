@@ -4,8 +4,8 @@ import { ref } from 'vue';
 
 interface IHomeListNoteItemProps {
 	id: string;
-	date: string;
-	name: string;
+	date?: string;
+	name?: string;
 }
 
 const props = defineProps<IHomeListNoteItemProps>();

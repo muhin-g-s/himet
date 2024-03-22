@@ -4,7 +4,7 @@ export interface INoteFilter {
 
 export interface INote {
 	id: string;
-	date: string;
-	name: string;
+	date?: string;
+	name?: string;
 	discription?: string;
 }
