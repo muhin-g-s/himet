@@ -14,7 +14,7 @@ const MIN_DISCRIPTION = 3;
 const MIN_NAME = 5;
 
 interface IDrawerForm {
-	isOpen: boolean;
+	isOpen: boolean | null;
 }
 
 const props = defineProps<IDrawerForm>();

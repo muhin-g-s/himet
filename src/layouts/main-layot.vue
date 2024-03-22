@@ -13,7 +13,10 @@ function changeStateDrawer() {
 <template>
 	<v-layout>
 		<main-header @change="changeStateDrawer" />
-		<main-drawer v-model="isOpenDrawer" />
+		<main-drawer
+			:model-value="isOpenDrawer"
+			@update:model-value="changeStateDrawer"
+		/>
 		<v-main class="h-100">
 			<router-view />
 		</v-main>

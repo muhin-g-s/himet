@@ -8,23 +8,19 @@ interface IMainDrawerProps {
 const props = defineProps<IMainDrawerProps>();
 
 const emit = defineEmits<{
-	(event: 'update:modelValue', value: boolean): void;
+	(event: 'update:modelValue'): void;
 }>();
-
-function changeStateDrawer(newValue: boolean) {
-	emit('update:modelValue', newValue);
-}
 </script>
 
 <template>
 	<v-navigation-drawer
 		:model-value="props.modelValue"
 		temporary
-		@update:model-value="changeStateDrawer"
+		@update:model-value="emit('update:modelValue')"
 	>
 		<drawer-form
 			:is-open="props.modelValue"
-			@close="changeStateDrawer(false)"
+			@close="emit('update:modelValue')"
 		/>
 	</v-navigation-drawer>
 </template>
